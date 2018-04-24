@@ -1,17 +1,10 @@
 import React, { Component } from 'react'
+import StuntDoubles from './components/stunt-doubles.js'
+import StuntDoubleService from './services/stunt-double-mock-service.js'
 import logo from './logo.svg'
 import './App.css'
 
-function * gen () {
-  let i = 1
-  while (true) {
-    yield i++
-  }
-}
-
-const generator = gen()
-
-window.setInterval(() => console.log(generator.next()), 1000)
+const stuntDoubleService = new StuntDoubleService()
 
 // create-react-app requires the root App.js file to be here
 class App extends Component {
@@ -20,12 +13,9 @@ class App extends Component {
       <div className='App'>
         <header className='App-header'>
           <img src={logo} className='App-logo' alt='logo' />
-          <h1 className='App-title'>Welcome to React</h1>
-
+          <h1 className='App-title'>Stunt Doubles</h1>
         </header>
-        <p className='App-intro'>
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <StuntDoubles service={stuntDoubleService} />
       </div>
     )
   }
