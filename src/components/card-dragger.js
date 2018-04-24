@@ -37,6 +37,8 @@ class CardDragger extends Component {
 
   render () {
     return (
+      // NOTE: I was planning to implement my own version of Draggable,
+      // but it's kinda tricky and I didn't manage it in time.
       <Draggable {...{
         axis: 'x',
         bounds: 'parent',

@@ -20,5 +20,9 @@
 
 .CardContainer-transitionActive {
     opacity: 0.01;
-    transition: opacity 300ms ease-in;
+    transition: opacity 300ms linear;
+}
+
+.CardContainer-noCards {
+    margin-top: 30px
 }

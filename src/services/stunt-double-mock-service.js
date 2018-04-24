@@ -11,25 +11,16 @@ const images = [
 ]
 
 export default class StuntDoubleService {
-  constructor () {
-    this._imageIndex = 0
-  }
-
-  _getRandomImage = () => {
-    if (this._imageIndex === images.length) {
-      this._imageIndex = 0
-      return images[images.length - 1]
-    }
-
-    this._imageIndex++
-    return images[this._imageIndex - 1]
-  }
-
   next = () => {
-    return {
-      name: faker.fake('{{name.firstName}} {{name.lastName}}'),
-      picture: this._getRandomImage()
+    if (images.length) {
+      return {
+        uid: faker.fake('{{random.uuid}}'),
+        name: faker.fake('{{name.firstName}} {{name.lastName}}'),
+        picture: images.pop()
+      }
     }
+
+    return null
   }
 
   like = ({ name }) => {

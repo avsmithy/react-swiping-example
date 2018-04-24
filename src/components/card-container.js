@@ -8,8 +8,8 @@ class CardContainer extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      currentCard: props.getNextCard(),
-      nextCard: props.getNextCard(),
+      currentCard: props.next(),
+      nextCard: props.next(),
       transition: false
     }
   }
@@ -19,7 +19,9 @@ class CardContainer extends Component {
   }
 
   showNextCard = () => {
-    this.timeout = window.setTimeout(this.switchCard, 500)
+    // NOTE: I attempted to use react-transition-group but couldn't
+    // get it to work with dragging
+    this.timeout = window.setTimeout(this.switchCard, 300)
     this.setState({
       transition: true
     })
@@ -28,7 +30,7 @@ class CardContainer extends Component {
   switchCard = () => {
     this.setState({
       currentCard: this.state.nextCard,
-      nextCard: this.props.getNextCard(),
+      nextCard: this.props.next(),
       transition: false
     })
   }
@@ -44,6 +46,14 @@ class CardContainer extends Component {
   }
 
   render () {
+    if (!this.state.currentCard) {
+      return (
+        <div className='CardContainer-noCards'>
+          I think we're done for the day pal...
+        </div>
+      )
+    }
+
     const transitionClass = `CardContainer-transition ${this.state.transition && 'CardContainer-transitionActive'}`
 
     return (
@@ -59,11 +69,13 @@ class CardContainer extends Component {
             picture: this.state.currentCard.picture
           }} />
         </CardDragger>
-        <Card {...{
-          className: 'CardContainer-nextCard',
-          name: this.state.nextCard.name,
-          picture: this.state.nextCard.picture
-        }} />
+        {this.state.nextCard && (
+          <Card {...{
+            className: 'CardContainer-nextCard',
+            name: this.state.nextCard.name,
+            picture: this.state.nextCard.picture
+          }} />
+        )}
       </div>
     )
   }
@@ -72,7 +84,7 @@ class CardContainer extends Component {
 CardContainer.propTypes = {
   like: propTypes.func.isRequired,
   dislike: propTypes.func.isRequired,
-  getNextCard: propTypes.func.isRequired
+  next: propTypes.func.isRequired
 }
 
 export default CardContainer

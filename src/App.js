@@ -17,7 +17,7 @@ class App extends Component {
         <CardContainer {...{
           dislike: stuntDoubleService.dislike,
           like: stuntDoubleService.like,
-          getNextCard: stuntDoubleService.next
+          next: stuntDoubleService.next
         }} />
       </div>
     )
