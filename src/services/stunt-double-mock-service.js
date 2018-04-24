@@ -31,4 +31,12 @@ export default class StuntDoubleService {
       picture: this._getRandomImage()
     }
   }
+
+  like = ({ name }) => {
+    console.log('You liked:', name)
+  }
+
+  dislike = ({ name }) => {
+    console.log('You hated:', name)
+  }
 }

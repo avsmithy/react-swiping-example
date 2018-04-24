@@ -1,0 +1,19 @@
+.CardDragger-wrapper {
+    position: relative;
+}
+
+.CardDragger-like,
+.CardDragger-dislike {
+    position: absolute;
+    top: 20px;
+}
+
+.CardDragger-like {
+    right: 20px;
+    color: green;
+}
+
+.CardDragger-dislike {
+    left: 20px;
+    color: red;
+}
