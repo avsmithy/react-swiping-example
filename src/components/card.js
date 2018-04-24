@@ -1,21 +1,19 @@
-import React, { Component } from 'react'
+import React from 'react'
 import propTypes from 'prop-types'
 import './card.css'
 
-class Card extends Component {
-  render () {
-    return (
-      <div className='Card'>
-        <div {...{
-          className: 'Card-picture',
-          style: {
-            backgroundImage: `url(${this.props.picture})`
-          }
-        }} />
-        <div className='Card-name'>{this.props.name}</div>
-      </div>
-    )
-  }
+const Card = props => {
+  return (
+    <div className={`Card ${props.className}`}>
+      <div {...{
+        className: 'Card-picture',
+        style: {
+          backgroundImage: `url(${props.picture})`
+        }
+      }} />
+      <div className='Card-name'>{props.name}</div>
+    </div>
+  )
 }
 
 Card.propTypes = {

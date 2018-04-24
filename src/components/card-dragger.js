@@ -7,15 +7,11 @@ const ROTATION_FACTOR = 0.08
 const DRAG_NO_ACTION_AREA = 65
 
 class CardDragger extends Component {
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      position: null,
-      rotation: 0,
-      showLikeTooltip: false,
-      showDislikeTooltip: false
-    }
+  state = {
+    position: null,
+    rotation: 0,
+    showLikeTooltip: false,
+    showDislikeTooltip: false
   }
 
   handleDrag = (_, { x }) => {
@@ -29,10 +25,8 @@ class CardDragger extends Component {
   handleStop = (_, { x }) => {
     if (x > DRAG_NO_ACTION_AREA) {
       this.props.like()
-      this.setState({ position: null })
     } else if (x < -DRAG_NO_ACTION_AREA) {
       this.props.dislike()
-      this.setState({ position: null })
     } else {
       this.setState({
         position: { x: 0, y: 0 },
@@ -51,8 +45,11 @@ class CardDragger extends Component {
         position: this.state.position
       }}>
         <div>
-          <div className='CardDragger-wrapper' style={{
-            transform: `rotate(${this.state.rotation}deg)`
+          <div {...{
+            className: `CardDragger-wrapper ${this.props.className}`,
+            style: {
+              transform: `rotate(${this.state.rotation}deg)`
+            }
           }}>
             {this.state.showLikeTooltip && (
               <div className='CardDragger-like'>Muah</div>

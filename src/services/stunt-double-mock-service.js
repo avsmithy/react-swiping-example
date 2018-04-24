@@ -12,17 +12,17 @@ const images = [
 
 export default class StuntDoubleService {
   constructor () {
-    this._lastImageIndex = 0
+    this._imageIndex = 0
   }
 
   _getRandomImage = () => {
-    if (this._lastImageIndex === images.length) {
-      this._lastImageIndex = 0
+    if (this._imageIndex === images.length) {
+      this._imageIndex = 0
       return images[images.length - 1]
     }
 
-    this._lastImageIndex++
-    return images[this._lastImageIndex - 1]
+    this._imageIndex++
+    return images[this._imageIndex - 1]
   }
 
   next = () => {

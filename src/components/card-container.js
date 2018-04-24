@@ -7,30 +7,63 @@ import './card-container.css'
 class CardContainer extends Component {
   constructor (props) {
     super(props)
-    this.currentCard = props.getNextCard()
-    this.nextCard = props.getNextCard()
+    this.state = {
+      currentCard: props.getNextCard(),
+      nextCard: props.getNextCard(),
+      transition: false
+    }
+  }
+
+  componentWillUnmount = () => {
+    window.clearTimeout(this.timeout)
+  }
+
+  showNextCard = () => {
+    this.timeout = window.setTimeout(this.switchCard, 500)
+    this.setState({
+      transition: true
+    })
+  }
+
+  switchCard = () => {
+    this.setState({
+      currentCard: this.state.nextCard,
+      nextCard: this.props.getNextCard(),
+      transition: false
+    })
   }
 
   handleLike = () => {
-    this.props.like(this.currentCard)
+    this.props.like(this.state.currentCard)
+    this.showNextCard()
   }
 
   handleDislike = () => {
-    this.props.dislike(this.currentCard)
+    this.props.dislike(this.state.currentCard)
+    this.showNextCard()
   }
 
   render () {
+    const transitionClass = `CardContainer-transition ${this.state.transition && 'CardContainer-transitionActive'}`
+
     return (
       <div className='CardContainer'>
         <CardDragger {...{
+          className: transitionClass,
+          key: this.state.currentCard.name,
           like: this.handleLike,
           dislike: this.handleDislike
         }}>
           <Card {...{
-            name: this.currentCard.name,
-            picture: this.currentCard.picture
+            name: this.state.currentCard.name,
+            picture: this.state.currentCard.picture
           }} />
         </CardDragger>
+        <Card {...{
+          className: 'CardContainer-nextCard',
+          name: this.state.nextCard.name,
+          picture: this.state.nextCard.picture
+        }} />
       </div>
     )
   }

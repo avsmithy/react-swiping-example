@@ -8,3 +8,17 @@
     margin-left: -250px;
     margin-top: 30px;
 }
+
+.CardContainer-nextCard {
+    position: absolute;
+    z-index: -1;
+}
+
+.CardContainer-transition {
+    opacity: 1;
+}
+
+.CardContainer-transitionActive {
+    opacity: 0.01;
+    transition: opacity 300ms ease-in;
+}
